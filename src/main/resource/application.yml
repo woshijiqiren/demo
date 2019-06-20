@@ -1,0 +1,51 @@
+server:
+  port: 10086
+  context-path: /demo
+spring:
+  mail:
+    host: smtp.qq.com
+    username: 1544349079@qq.com
+    password: autsgcxrmsczggai
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+  jms:
+    pub-sub-domain: false   # 配置消息的类型，如果是true则表示为topic消息，如果为false表示Queue消息
+    activemq:
+    user: studyjava    # 连接用户名
+    password: hello   # 连接密码
+    broker-url: tcp://activemq-server:61616 # 消息组件的连接主机信息
+  messages:
+    basename: i18n/Messages,i18n/Pages
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource    # 配置当前要使用的数据源的操作类型
+    driver-class-name: org.gjt.mm.mysql.Driver      # 配置MySQL的驱动程序类
+    url: jdbc:mysql://localhost:3306/test           # 数据库连接地址
+    username: root                                  # 数据库用户名
+    password: 123456                                # 数据库连接密码
+    filters: stat,wall,log4j
+    dbcp2:                                          # 进行数据库连接池的配置
+      min-idle: 5                                   # 数据库连接池的最小维持连接数    
+      initial-size: 5                               # 初始化提供的连接数
+      max-total: 5                                  # 最大的连接数
+      max-wait-millis: 200                          # 等待连接获取的最大超时时间
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+  mvc:
+    static-path-pattern: /**
+  dubbo:
+    application:            #应用配置，用于配置当前应用信息，不管该应用是提供者还是消费者。
+      name: provider
+    registry:                 #注册中心配置，用于配置连接注册中心相关信息。
+      address: zookeeper://127.0.0.1:2181
+    protocol:     #协议配置，用于配置提供服务的协议信息，协议由提供方指定，消费方被动接受。
+      name: dubbo
+      port: 20880
+    scan: com.zr.dubbo  #服务暴露与发现消费所在的package
+  
+mybatis:
+  mapperLocations: classpath:com/zr/demo/mapper/*.xml
+  typeAliasesPackage: com.zr.model
